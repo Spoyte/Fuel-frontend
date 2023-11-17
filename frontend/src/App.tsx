@@ -3,10 +3,11 @@ import "./App.css";
 // Import the contract factory -- you can find the name in index.ts.
 // You can also do command + space and the compiler will suggest the correct name.
 import { HouseContractAbi__factory } from "./contracts";
- 
+import { BaseAssetId } from "fuels";
+
 // The address of the contract deployed the Fuel testnet
 const CONTRACT_ID =
-  "0x65e3d13a8afb6871cac63c5caab552a610f040010a6ff3f7f5e50b0bd33ca007";
+  "0x9cf5bec5f4f601341d47e99566bf0ee2ccc2fcf43ab4dd702f94882dec0f545b";
  
 function App() {
   const [connected, setConnected] = useState<boolean>(false);
@@ -65,7 +66,7 @@ function App() {
         await contract.functions
         .increment()
         .callParams({
-          forward: [1, BaseAssetId],
+          forward: [11, BaseAssetId],
         })
         .txParams({ gasPrice: 1 })
         .call();
