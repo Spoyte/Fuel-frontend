@@ -62,7 +62,13 @@ function App() {
       // Creates a transactions to call the increment function
       // because it creates a TX and updates the contract state this requires the wallet to have enough coins to cover the costs and also to sign the Transaction
       try {
-        await contract.functions.increment().txParams({ gasPrice: 1 }).call();
+        await contract.functions
+        .increment()
+        .callParams({
+          forward: [1, BaseAssetId],
+        })
+        .txParams({ gasPrice: 1 })
+        .call();
         getCount();
       } catch (err) {
         console.log("error sending transaction...", err);

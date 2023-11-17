@@ -1,11 +1,15 @@
 contract;
 
+use std::{
+    context::msg_amount
+};
+
 storage {
     counter: u64 = 0,
 }
 
 abi Counter {
-    #[storage(read, write)]
+    #[storage(read, write), payable]
     fn increment();
  
     #[storage(read)]
@@ -18,10 +22,11 @@ impl Counter for Contract {
         storage.counter.read()
     }
  
-    #[storage(read, write)]
+    #[storage(read, write), payable]
     fn increment() {
         let incremented = storage.counter.read() + 1;
         require((incremented > storage.counter.read()), "error during increment: new value is lower than old one!");
+        assert(10 < msg_amount());
         storage.counter.write(incremented);
     }
 
